@@ -11,7 +11,7 @@ st.title("🤖 Asisten Analis Data Pro")
 if API_KEY and SHEET_URL:
     try:
         genai.configure(api_key=API_KEY)
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         
         # Proses Link Sheets ke CSV
         csv_url = SHEET_URL.split('/edit')[0] + '/export?format=csv'
