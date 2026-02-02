@@ -1,31 +1,44 @@
 import streamlit as st
 import pandas as pd
-import google.generativeai as genai
 
-# GANTI DENGAN DATA KAMU
-API_KEY = "AIzaSyC8uOdQJ2S24M8q34tWRfBu6a--9lJVLIw"
-SHEET_URL = "https://docs.google.com/spreadsheets/d/1DCGSVQ0f1eM0t4sXZWY5S4Ruvzf2hgOU/edit?usp=sharing&ouid=109759809706529099005&rtpof=true&sd=true"
+# Judul Website & Icon
+st.set_page_config(page_title="Ruang Miniatur - Tutorial Kerajinan", page_icon="✂️", layout="wide")
 
-st.title("🤖 Asisten Analis Data Pro")
+# Header
+st.title("✂️ Ruang Miniatur")
+st.subheader("Belajar Membuat Dunia dalam Genggaman")
+st.write("Dapatkan panduan lengkap langkah demi langkah membuat miniatur berkualitas tinggi.")
+st.divider()
 
-if API_KEY and SHEET_URL:
-    try:
-        genai.configure(api_key=API_KEY)
-        model = genai.GenerativeModel('gemini-1.5-flash')
+# LINK GOOGLE SHEETS KAMU
+# Pastikan link ini adalah link Google Sheets yang aksesnya sudah "Anyone with the link"
+SHEET_URL = "MASUKKAN_LINK_GOOGLE_SHEETS_KAMU_DISINI"
+
+try:
+    # Proses ambil data dari Google Sheets
+    csv_url = SHEET_URL.split('/edit')[0] + '/export?format=csv'
+    df = pd.read_csv(csv_url)
+
+    # Tampilan Produk dalam bentuk Grid
+    col1, col2 = st.columns(2)
+
+    for index, row in df.iterrows():
+        current_col = col1 if index % 2 == 0 else col2
         
-        # Proses Link Sheets ke CSV
-        csv_url = SHEET_URL.split('/edit')[0] + '/export?format=csv'
-        df = pd.read_csv(csv_url)
-        
-        st.write("### Data Analisis:", df.head())
+        with current_col:
+            # Menampilkan info produk tutorial
+            st.markdown(f"### 📦 {row['Produk']}")
+            st.write(f"💰 **Harga: Rp {row['Harga']}**")
+            
+            # Box Informasi Deskripsi
+            st.info(f"**Tentang Tutorial:** \n\n {row['Deskripsi']}")
+            
+            # Tombol Beli via WA
+            st.link_button(f"Pesan Tutorial {row['Produk']}", row['Link_Beli'], use_container_width=True)
+            st.write("---")
 
-        user_ask = st.text_input("Tanya apa saja tentang data ini (Contoh: 'Tampilkan grafik batang')")
-        
-        if user_ask:
-            if "grafik" in user_ask.lower():
-                st.bar_chart(df.set_index(df.columns[0]))
-            else:
-                response = model.generate_content(f"Data: {df.to_string()}. Pertanyaan: {user_ask}")
-                st.write(response.text)
-    except Exception as e:
-        st.error(f"Ada masalah: {e}")
+except Exception as e:
+    st.warning("Menunggu data dari Google Sheets... Pastikan link sudah benar dan kolom sesuai (Produk, Harga, Deskripsi, Link_Beli).")
+
+# Footer
+st.caption("© 2026 Ruang Miniatur - Dibuat dengan Streamlit")
