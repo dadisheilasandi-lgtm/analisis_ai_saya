@@ -9,7 +9,7 @@ st.write("Temukan panduan eksklusif pembuatan miniatur di sini.")
 st.divider()
 
 # 2. LINK GOOGLE SHEETS (Ganti teks di bawah ini dengan link kamu)
-SHEET_URL = "MASUKKAN_LINK_GOOGLE_SHEETS_KAMU_DISINI"
+SHEET_URL = "https://docs.google.com/spreadsheets/d/1UHXQlYs8jYe-DKYIW4CxXAs4ww_vlQLK8XBeqUQGnIo/edit?usp=sharing"
 
 try:
     # Mengambil data dari Google Sheets
