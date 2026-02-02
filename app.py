@@ -1,38 +1,43 @@
 import streamlit as st
 import pandas as pd
 
-# Judul Utama
-st.title("✂️ Ruang Miniatur")
-st.write("Katalog Tutorial Miniatur")
+st.set_page_config(page_title="Ruang Miniatur", page_icon="✂️")
 
-# GANTI LINK DI BAWAH INI
+st.title("✂️ Ruang Miniatur")
+st.write("Katalog Tutorial Kerajinan Tangan")
+
+# BARIS 10: PASTIKAN LINK INI BENAR
 LINK_SHEETS = "https://docs.google.com/spreadsheets/d/1UHXQlYs8jYe-DKYIW4CxXAs4ww_vlQLK8XBeqUQGnIo/edit?usp=sharing"
 
 try:
-    # Membaca Data
-    csv_url = LINK_SHEETS.split('/edit')[0] + '/export?format=csv'
+    # Rumus sakti baca Google Sheets
+    base_url = LINK_SHEETS.split('/edit')[0]
+    csv_url = f"{base_url}/export?format=csv"
     df = pd.read_csv(csv_url)
 
-    # Loop Produk dengan Kotak Berwarna Bawaan
     for index, row in df.iterrows():
-        # Kotak akan berganti warna otomatis: Biru, Hijau, Abu-abu
-        if index % 3 == 0:
+        # Pakai fitur 'status' untuk kasih warna kotak secara otomatis
+        # Ada warna Biru (info), Hijau (success), dan Oranye (warning)
+        warna = ["info", "success", "warning"]
+        pilih_warna = warna[index % len(warna)]
+        
+        if pilih_warna == "info":
             with st.info(f"### {row['Produk']}"):
-                st.write(f"Harga: **Rp {row['Harga']}**")
+                st.write(f"💰 **Harga: Rp {row['Harga']}**")
                 st.write(row['Deskripsi'])
-                st.link_button("Pesan Sekarang", row['Link_Beli'])
-        elif index % 3 == 1:
+                st.link_button("Beli Sekarang", row['Link_Beli'])
+        elif pilih_warna == "success":
             with st.success(f"### {row['Produk']}"):
-                st.write(f"Harga: **Rp {row['Harga']}**")
+                st.write(f"💰 **Harga: Rp {row['Harga']}**")
                 st.write(row['Deskripsi'])
-                st.link_button("Pesan Sekarang", row['Link_Beli'])
+                st.link_button("Beli Sekarang", row['Link_Beli'])
         else:
             with st.container(border=True):
-                st.markdown(f"### {row['Produk']}")
-                st.write(f"Harga: **Rp {row['Harga']}**")
+                st.markdown(f"### :orange[{row['Produk']}]")
+                st.write(f"💰 **Harga: Rp {row['Harga']}**")
                 st.write(row['Deskripsi'])
-                st.link_button("Pesan Sekarang", row['Link_Beli'])
+                st.link_button("Beli Sekarang", row['Link_Beli'])
         st.write("")
 
 except Exception as e:
-    st.error("Ada masalah pada Link Google Sheets atau Nama Kolom.")
+    st.error(f"Gagal baca data: {e}")
