@@ -12,7 +12,7 @@ st.divider()
 
 # LINK GOOGLE SHEETS KAMU
 # Pastikan link ini adalah link Google Sheets yang aksesnya sudah "Anyone with the link"
-SHEET_URL = "https://docs.google.com/spreadsheets/d/1DCGSVQ0f1eM0t4sXZWY5S4Ruvzf2hgOU/edit?usp=sharing&ouid=109759809706529099005&rtpof=true&sd=true"
+SHEET_URL = "https://docs.google.com/spreadsheets/d/1UHXQlYs8jYe-DKYIW4CxXAs4ww_vlQLK8XBeqUQGnIo/edit?usp=sharing"
 
 try:
     # Proses ambil data dari Google Sheets
