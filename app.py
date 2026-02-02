@@ -5,7 +5,7 @@ import pandas as pd
 st.set_page_config(page_title="Ruang Miniatur", page_icon="✂️", layout="centered")
 
 # 2. Header Tanpa HTML (Aman dari Error)
-st.title("✂️ Ruang Miniatur")
+st.title("Ruang Miniatur")
 st.caption("Dunia dalam Genggaman: Tutorial & Kerajinan Miniatur Eksklusif")
 st.divider()
 
