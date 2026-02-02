@@ -6,7 +6,7 @@ st.title("✂️ Ruang Miniatur")
 st.write("Katalog Tutorial Miniatur")
 
 # GANTI LINK DI BAWAH INI
-LINK_SHEETS = "MASUKKAN_LINK_GOOGLE_SHEETS_DI_SINI"
+LINK_SHEETS = "https://docs.google.com/spreadsheets/d/1UHXQlYs8jYe-DKYIW4CxXAs4ww_vlQLK8XBeqUQGnIo/edit?usp=sharing"
 
 try:
     # Membaca Data
