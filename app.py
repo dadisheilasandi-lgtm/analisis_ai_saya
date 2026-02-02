@@ -4,7 +4,7 @@ import google.generativeai as genai
 
 # GANTI DENGAN DATA KAMU
 API_KEY = "AIzaSyC8uOdQJ2S24M8q34tWRfBu6a--9lJVLIw"
-SHEET_URL = "https://docs.google.com/spreadsheets/d/1DCGSVQ0f1eM0t4sXZWY5S4Ruvzf2hgOU/edit?usp=drive_link&ouid=109759809706529099005&rtpof=true&sd=true"
+SHEET_URL = "https://docs.google.com/spreadsheets/d/1DCGSVQ0f1eM0t4sXZWY5S4Ruvzf2hgOU/edit?usp=sharing&ouid=109759809706529099005&rtpof=true&sd=true"
 
 st.title("🤖 Asisten Analis Data Pro")
 
@@ -14,7 +14,7 @@ if API_KEY and SHEET_URL:
         model = genai.GenerativeModel('gemini-pro')
         
         # Proses Link Sheets ke CSV
-        csv_url = SHEET_URL.replace('/edit?usp=sharing', '/export?format=csv')
+        csv_url = SHEET_URL.split('/edit')[0] + '/export?format=csv'
         df = pd.read_csv(csv_url)
         
         st.write("### Data Analisis:", df.head())
